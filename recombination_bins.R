@@ -3,7 +3,7 @@ library("stringr")
 library("ggplot2")
 library("grid")
 library("chisq.posthoc.test")
-library("ggpubr")
+# library("ggpubr")
 library("diptest")
 
 file_extension = ".png"
@@ -661,35 +661,35 @@ main <- function() {
 
 	univ_pos = absolute_positions( chr_lengths )
 
-	suppressWarnings({
-		if ( graphs == "g" ){
-			geno_graphs( path_and_file, chr_labs, chr_lengths, univ_pos )
-			recom_graphs( path_and_file, chr_labs, chr_lengths, univ_pos )
-		}
-
-		if ( graphs == "s" ){
-			shared_geno_graphs( path_and_file, chr_labs, chr_lengths, univ_pos )
-		}
-
-		if ( graphs == "c" ) {
-			centro_ymax = 500 # This will depend on the number of progeny you have; remember this includes recombinations across all of them.  
-			model_dat = modelling_data_prep( path_and_file, chr_lengths )
-			centro_graphs( path_and_file, centromeres, chr_lengths, univ_pos, chr_labs, model_dat, ymax = centro_ymax)
-		}
-
-		if ( graphs == "h" ) {
-			rhg_filename = args[4]
-
-			recom_histo( rhg_filename, path_and_file, bwidth = 5 )
-			track_lengths( path_and_file, chr_labs, chr_lengths, univ_pos, bwidth = 10 )
-		}
-
-		if ( graphs == "loh" ){ 
-
-			loh_reco( path_and_file, chr_labs, chr_lengths, univ_pos )
-
-		}
-	})
+	# suppressWarnings({
+	# 	if ( graphs == "g" ){
+	# 		geno_graphs( path_and_file, chr_labs, chr_lengths, univ_pos )
+	# 		recom_graphs( path_and_file, chr_labs, chr_lengths, univ_pos )
+	# 	}
+	# 
+	# 	if ( graphs == "s" ){
+	# 		shared_geno_graphs( path_and_file, chr_labs, chr_lengths, univ_pos )
+	# 	}
+	# 
+	# 	if ( graphs == "c" ) {
+	# 		centro_ymax = 500 # This will depend on the number of progeny you have; remember this includes recombinations across all of them.  
+	# 		model_dat = modelling_data_prep( path_and_file, chr_lengths )
+	# 		centro_graphs( path_and_file, centromeres, chr_lengths, univ_pos, chr_labs, model_dat, ymax = centro_ymax)
+	# 	}
+	# 
+	# 	if ( graphs == "h" ) {
+	# 		rhg_filename = args[4]
+	# 
+	# 		recom_histo( rhg_filename, path_and_file, bwidth = 5 )
+	# 		track_lengths( path_and_file, chr_labs, chr_lengths, univ_pos, bwidth = 10 )
+	# 	}
+	# 
+	# 	if ( graphs == "loh" ){ 
+	# 
+	# 		loh_reco( path_and_file, chr_labs, chr_lengths, univ_pos )
+	# 
+	# 	}
+	# })
 
 }
 
