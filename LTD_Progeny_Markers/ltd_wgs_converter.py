@@ -122,9 +122,11 @@ def this_is_the_way():
 		
 	data_file = open( file_name, "r" )
 	data_list = csv_reader( data_file )
-
+    
+# 	print(data_list) 
+    
 	five29L_cross = []
-	p60002_cross = []
+# 	p60002_cross = []
 
 	header = 1
 	for index, snps in enumerate(data_list): 
@@ -133,16 +135,17 @@ def this_is_the_way():
 		chr_pos           = snps[1]
 		SC5314            = snps[9]
 		five29L           = snps[10]
-		P60002            = snps[11]
-		MAY_103_529L_tet  = snps[12] # SCx529L Tetraploid
-		MAY_316_P600_tet  = snps[13] # SCxP6 Tetraploid
-		MAY_154_529L_prog = snps[14] # SCx529L Progeny
-		MAY_155_529L_prog = snps[15] # SCx529L Progeny
-		MAY_156_529L_prog = snps[16] # SCx529L Progeny
-		MAY_157_529L_prog = snps[17] # SCx529L Progeny
-		MAY_158_529L_prog = snps[18] # SCx529L Progeny
-		MAY_332_P600_prog = snps[19] # SCxP60002 Progeny
-		MAY_333_P600_prog = snps[20] # SCxP60002 Progeny
+		progeny 		  = snps[11:]
+# 		P60002            = snps[11]
+# 		MAY_103_529L_tet  = snps[12] # SCx529L Tetraploid
+# 		MAY_316_P600_tet  = snps[13] # SCxP6 Tetraploid
+# 		MAY_154_529L_prog = snps[14] # SCx529L Progeny
+# 		MAY_155_529L_prog = snps[15] # SCx529L Progeny
+# 		MAY_156_529L_prog = snps[16] # SCx529L Progeny
+# 		MAY_157_529L_prog = snps[17] # SCx529L Progeny
+# 		MAY_158_529L_prog = snps[18] # SCx529L Progeny
+# 		MAY_332_P600_prog = snps[19] # SCxP60002 Progeny
+# 		MAY_333_P600_prog = snps[20] # SCxP60002 Progeny
 
 		cat_ID = str(index)
 
@@ -152,28 +155,31 @@ def this_is_the_way():
 		if header: 
 			header = 0
 			# five29L_cross.append( ["Chromosome", "Chr_Position", "# Catalog ID", snps[9], snps[10], snps[12]] + snps[14:19] )
-			five29L_cross.append( ["Chromosome", "Chr_Position", "# Catalog ID", snps[9], snps[10]] + snps[14:19] )
-			p60002_cross.append( ["Chromosome", "Chr_Position", "# Catalog ID", snps[9], snps[11], snps[13]] + snps[19:] )
+			five29L_cross.append( ["Chromosome", "Chr_Position", "# Catalog ID", snps[9], snps[10]] + snps[11:] )
+# 			p60002_cross.append( ["Chromosome", "Chr_Position", "# Catalog ID", snps[9], snps[11], snps[13]] + snps[19:] )
 			continue
 
 		# SCx529L = [ SC5314, five29L, MAY_103_529L_tet, MAY_154_529L_prog, MAY_155_529L_prog, \
 		# 											MAY_156_529L_prog, MAY_157_529L_prog, MAY_158_529L_prog ] # Include the tetraploid
 
-		SCx529L = [ SC5314, five29L, MAY_154_529L_prog, MAY_155_529L_prog, MAY_156_529L_prog, MAY_157_529L_prog, MAY_158_529L_prog ] # Exclude tetraploid
+# 		SCx529L = [ SC5314, five29L, MAY_154_529L_prog, MAY_155_529L_prog, MAY_156_529L_prog, MAY_157_529L_prog, MAY_158_529L_prog ] # Exclude tetraploid
+		
+		SCx529L = [ SC5314, five29L] + progeny 
+		
+# 		print( SCx529L )
+# 		SCxP6   = [ SC5314, P60002, MAY_316_P600_tet, MAY_332_P600_prog, MAY_333_P600_prog ]
 
-		SCxP6   = [ SC5314, P60002, MAY_316_P600_tet, MAY_332_P600_prog, MAY_333_P600_prog ]
-
-		lists = [SCx529L, SCxP6]
+		lists = [SCx529L]
 
 		new_mkr = []
 		for cross in lists: 
 			new_mkr.append(snp2mkr(cross, cat_ID))
 
 		new_529L_mkr = [chromosome, chr_pos, cat_ID] + new_mkr[0]
-		new_P6_mkr = [chromosome, chr_pos, cat_ID] + new_mkr[1]
+# 		new_P6_mkr = [chromosome, chr_pos, cat_ID] + new_mkr[1]
 
 		five29L_cross.append( new_529L_mkr )
-		p60002_cross.append( new_P6_mkr )
+# 		p60002_cross.append( new_P6_mkr )
 
 	if test: 
 
@@ -181,9 +187,9 @@ def this_is_the_way():
 		# csv_printer( transpose(five29L_cross), new_5_file )
 		csv_printer( five29L_cross, new_5_file )
 
-		new_P6_file = open( "P600_TEST_4way.csv", "w" )
-		# csv_printer( transpose(p60002_cross), new_P6_file )
-		csv_printer( p60002_cross, new_P6_file )
+# 		new_P6_file = open( "P600_TEST_4way.csv", "w" )
+# 		# csv_printer( transpose(p60002_cross), new_P6_file )
+# 		csv_printer( p60002_cross, new_P6_file )
 
 
 	else: 
@@ -192,8 +198,8 @@ def this_is_the_way():
 		csv_printer( transpose(five29L_cross), new_5_file )
 		# csv_printer( five29L_cross, new_5_file )
 
-		new_P6_file = open( "ltd_P6_4way.csv", "w" )
-		csv_printer( transpose(p60002_cross), new_P6_file )
-		# csv_printer( p60002_cross, new_P6_file )
+# 		new_P6_file = open( "ltd_P6_4way.csv", "w" )
+# 		csv_printer( transpose(p60002_cross), new_P6_file )
+# 		# csv_printer( p60002_cross, new_P6_file )
 
 this_is_the_way()
